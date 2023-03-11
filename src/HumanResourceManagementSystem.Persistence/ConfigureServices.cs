@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
+using HumanResourceManagementSystem.Domain.Entities.Identity;
 using HumanResourceManagementSystem.Persistence.Contexts;
-using HumanResourceManagementSystem.Persistence.Identity;
 using HumanResourceManagementSystem.Persistence.Interceptors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -32,7 +32,7 @@ public static class ConfigureServices
 
         services.AddScoped<ApplicationDbContextInitializer>();
 
-        services.AddIdentity<ApplicationUser, ApplicationRole>(x =>
+        services.AddIdentity<User, Role>(x =>
             {
                 x.User.RequireUniqueEmail = true;
                 x.User.AllowedUserNameCharacters =

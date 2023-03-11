@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
+using HumanResourceManagementSystem.Domain.Entities;
+using HumanResourceManagementSystem.Domain.Entities.Identity;
 using HumanResourceManagementSystem.Persistence.Common;
-using HumanResourceManagementSystem.Persistence.Identity;
 using HumanResourceManagementSystem.Persistence.Interceptors;
 using MediatR;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HumanResourceManagementSystem.Persistence.Contexts;
 
-public class ApplicationDbContext : IdentityDbContext<ApplicationUser,ApplicationRole,long>
+public class ApplicationDbContext : IdentityDbContext<User,Role,long>
 {
     private readonly AuditableEntitySaveChangesInterceptor _auditableEntitySaveChangesInterceptor;
     private readonly IMediator _mediator;
@@ -37,4 +38,15 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser,Applicatio
 
         return await base.SaveChangesAsync(cancellationToken);
     }
+
+
+    public DbSet<Address> Addresses { get; set; }
+    public DbSet<City> Cities { get; set; }
+    public DbSet<Company> Companies { get; set; }
+    public DbSet<CompanyDetail> CompanyDetails { get; set; }
+    public DbSet<Country> Countries { get; set; }
+    public DbSet<Department> Departments { get; set; }
+    public DbSet<District> Districts { get; set; }
+    public DbSet<TaxOffice> TaxOffices { get; set; }
+    public DbSet<TaxOfficeOfCompany> TaxOfficeOfCompanies { get; set; }
 }
