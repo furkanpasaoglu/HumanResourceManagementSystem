@@ -1,4 +1,4 @@
-﻿using HumanResourceManagementSystem.Persistence.Identity;
+﻿using HumanResourceManagementSystem.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -9,10 +9,10 @@ public class ApplicationDbContextInitializer
 {
     private readonly ApplicationDbContext _context;
     private readonly ILogger<ApplicationDbContextInitializer> _logger;
-    private readonly RoleManager<ApplicationRole> _roleManager;
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly RoleManager<Role> _roleManager;
+    private readonly UserManager<User> _userManager;
 
-    public ApplicationDbContextInitializer(ApplicationDbContext context, ILogger<ApplicationDbContextInitializer> logger, RoleManager<ApplicationRole> roleManager, UserManager<ApplicationUser> userManager)
+    public ApplicationDbContextInitializer(ApplicationDbContext context, ILogger<ApplicationDbContextInitializer> logger, RoleManager<Role> roleManager, UserManager<User> userManager)
     {
         _context = context;
         _logger = logger;
@@ -52,7 +52,7 @@ public class ApplicationDbContextInitializer
     public async Task TrySeedAsync()
     {
         // Default roles
-        var administratorRole = new ApplicationRole
+        var administratorRole = new Role
         {
             Name = "Administrator",
             NormalizedName = "ADMINISTRATOR"
@@ -64,7 +64,7 @@ public class ApplicationDbContextInitializer
         }
 
         // Default users
-        var administrator = new ApplicationUser { UserName = "administrator@localhost", Email = "administrator@localhost" };
+        var administrator = new User { UserName = "administrator@localhost", Email = "administrator@localhost" };
 
         if (_userManager.Users.All(u => u.UserName != administrator.UserName))
         {
